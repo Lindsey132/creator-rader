@@ -1,0 +1,40 @@
+name: Fetch creators (daily)
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # every day 06:17 UTC / 每天 UTC 06:17（都柏林早上 7 点左右）
+  workflow_dispatch:        # lets you run it manually from the Actions tab / 可在 Actions 页面手动运行
+
+permissions:
+  contents: write           # needed to commit data/creators.json / 允许把数据提交回仓库
+
+concurrency:
+  group: fetch-creators
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch YouTube creators
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python scripts/fetch_youtube.py
+
+      - name: Commit data if changed
+        run: |
+          git config user.name "creator-radar-bot"
+          git config user.email "creator-radar-bot@users.noreply.github.com"
+          git add data/creators.json
+          if git diff --cached --quiet; then
+            echo "No changes / 没有新数据"
+          else
+            git commit -m "data: update creators $(date -u +%F)"
+            git push
+          fi

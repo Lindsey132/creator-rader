@@ -1,0 +1,10 @@
+{
+  "keywords": ["desk setup", "pixel art", "tech gadgets"],
+  "regions": ["US", "GB", "IE"],
+  "language": "en",
+  "days_back": 30,
+  "max_results_per_search": 25,
+  "min_subscribers": 5000,
+  "max_subscribers": 500000,
+  "recent_videos_to_check": 10
+}
