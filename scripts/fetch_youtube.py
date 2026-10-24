@@ -191,7 +191,35 @@ def main():
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump({"updated_at": now, "count": len(creators), "creators": creators},
                   f, ensure_ascii=False, indent=2)
-    print(f"Saved {len(creators)} creators to data/creators.json")
+    write_csv(creators)
+    print(f"Saved {len(creators)} creators to data/creators.json and data/creators.csv")
+
+
+def write_csv(creators):
+    """Human-readable table; GitHub shows .csv files as a searchable table.
+    方便阅读的表格，GitHub 会把 .csv 显示成可搜索的表格。"""
+    import csv
+    cols = [("score", "得分 Score"), ("name", "博主 Name"), ("country", "国家 Country"),
+            ("subscribers", "粉丝 Subs"), ("avg_views", "平均播放 Avg views"),
+            ("engagement_rate", "互动率 Engagement"), ("last_upload", "最近更新 Last upload"),
+            ("matched_keywords", "关键词 Keywords"), ("status", "状态 Status"),
+            ("notes", "备注 Notes"), ("url", "链接 Link")]
+    path = os.path.join(os.path.dirname(DATA_PATH), "creators.csv")
+    with open(path, "w", encoding="utf-8-sig", newline="") as f:  # utf-8-sig so Excel shows Chinese correctly
+        w = csv.writer(f)
+        w.writerow([label for _, label in cols])
+        for c in creators:
+            row = []
+            for key, _ in cols:
+                v = c.get(key, "")
+                if key == "engagement_rate":
+                    v = f"{v * 100:.1f}%"
+                elif key == "last_upload":
+                    v = str(v)[:10]
+                elif isinstance(v, list):
+                    v = ", ".join(v)
+                row.append(v)
+            w.writerow(row)
 
 
 if __name__ == "__main__":
