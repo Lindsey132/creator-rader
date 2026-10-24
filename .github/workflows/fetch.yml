@@ -31,7 +31,7 @@ jobs:
         run: |
           git config user.name "creator-radar-bot"
           git config user.email "creator-radar-bot@users.noreply.github.com"
-          git add data/creators.json data/creators.csv
+          git add -A data
           if git diff --cached --quiet; then
             echo "No changes / 没有新数据"
           else

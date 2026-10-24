@@ -1,10 +1,42 @@
 {
-  "keywords": ["desk setup", "pixel art", "tech gadgets"],
   "regions": ["US", "GB", "IE"],
+  "only_countries": ["US", "GB", "IE"],
+  "keep_unknown_country": true,
   "language": "en",
-  "days_back": 30,
+  "days_back": 60,
   "max_results_per_search": 25,
-  "min_subscribers": 5000,
-  "max_subscribers": 500000,
-  "recent_videos_to_check": 10
+  "recent_videos_to_check": 10,
+  "categories": [
+    {
+      "id": "tech-long",
+      "name": "长视频科技测评 Long-form tech reviews",
+      "description": "做 8 分钟以上长视频、深度讲解和测评科技产品的博主，适合需要详细介绍功能的产品。 Creators whose typical video is 8+ minutes and who explain or review tech products in depth.",
+      "keywords": ["tech review", "gadget review", "speaker review"],
+      "search_duration": "medium",
+      "min_median_minutes": 8,
+      "must_match_any": ["review", "tech", "gadget", "unbox", "speaker", "headphone", "phone", "laptop", "setup"],
+      "min_subscribers": 5000,
+      "max_subscribers": 500000
+    },
+    {
+      "id": "desk-setup",
+      "name": "桌面布置 Desk setup",
+      "description": "展示桌面、工作区、游戏房布置的博主，适合桌面摆件和灯光类产品。 Creators who show desk, workspace and gaming-room setups.",
+      "keywords": ["desk setup", "desk tour"],
+      "min_median_minutes": 0,
+      "must_match_any": ["desk", "setup", "workspace", "room tour"],
+      "min_subscribers": 5000,
+      "max_subscribers": 500000
+    },
+    {
+      "id": "pixel-art",
+      "name": "像素艺术 Pixel art",
+      "description": "创作或讲解像素艺术的博主，适合像素风产品。 Creators who make or teach pixel art.",
+      "keywords": ["pixel art", "pixel art tutorial"],
+      "min_median_minutes": 0,
+      "must_match_any": ["pixel"],
+      "min_subscribers": 3000,
+      "max_subscribers": 500000
+    }
+  ]
 }

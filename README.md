@@ -9,7 +9,9 @@ Automatically searches YouTube for creators every day, scores them, and saves re
 config.json                     搜索设置 / search settings
 scripts/fetch_youtube.py        抓取脚本 / fetcher script
 .github/workflows/fetch.yml     每日定时任务 / daily schedule
-data/creators.json              结果（自动生成）/ results (auto-generated)
+data/README.md                  结果说明（自动生成）/ results guide (auto-generated)
+data/<类别>.csv                 每个类别一张表 / one table per category
+data/creators.json              原始数据 / raw data
 ```
 
 ## 设置步骤 / Setup
@@ -28,15 +30,35 @@ data/creators.json              结果（自动生成）/ results (auto-generate
 直接在 GitHub 网页上编辑 `config.json`：
 Edit `config.json` on GitHub:
 
+**查看结果 / Results：** 打开 [`data`](data) 文件夹，说明页里有每个类别表格的链接。
+Open the [`data`](data) folder; its guide links to one table per category.
+
+**全局设置 / Global settings**
+
 | 字段 Field | 含义 Meaning |
 |---|---|
-| `keywords` | 搜索关键词 / search keywords |
-| `regions` | 国家代码，如 US、GB、IE、DE、JP / country codes |
+| `regions` | 搜索时偏向的国家 / countries the search leans toward |
+| `only_countries` | 只保留这些国家的博主（留空 `[]` 表示不限）/ keep only creators from these countries (`[]` = any) |
+| `keep_unknown_country` | 没填国家的博主是否保留 / keep creators with no country set |
 | `language` | 视频语言 / video language |
-| `days_back` | 只看最近 N 天发布的视频 / only videos from the last N days |
+| `days_back` | 只搜最近 N 天发布的视频 / only search videos from the last N days |
 | `max_results_per_search` | 每次搜索最多几条（最多 50）/ results per search (max 50) |
+| `recent_videos_to_check` | 用最近几条视频计算数据 / recent videos used for metrics |
+
+**类别 / Categories**（`categories` 里每一项是一张表 / each entry becomes one table）
+
+| 字段 Field | 含义 Meaning |
+|---|---|
+| `id` | 表格文件名，如 `tech-long` → `data/tech-long.csv` / table file name |
+| `name` / `description` | 类别名称和说明 / category name and explanation |
+| `keywords` | 搜索词 / search keywords |
+| `search_duration` | 可选：`short`(<4分钟) `medium`(4–20分钟) `long`(>20分钟) / optional video-length filter for search |
+| `min_median_minutes` | 博主视频的典型时长至少几分钟（0 = 不限）/ minimum typical video length (0 = any) |
+| `must_match_any` | 频道名、简介或视频标题里必须出现其中一个词，用来排除不相关的号 / at least one of these words must appear, to drop off-topic channels |
 | `min_subscribers` / `max_subscribers` | 粉丝量范围 / subscriber range |
-| `recent_videos_to_check` | 用最近几条视频算互动率 / recent videos used for metrics |
+
+想加新类别：复制一个类别，改 `id`、`name` 和关键词即可。每个关键词 × 每个地区消耗 100 配额，所有类别加起来最好不超过 60 次搜索。
+To add a category, copy one and change its `id`, `name` and keywords. Each keyword × region costs 100 quota units; keep the total under about 60 searches.
 
 ## 打分规则 / Scoring (0–100)
 
@@ -49,8 +71,8 @@ Edit `config.json` on GitHub:
 
 ## API 配额 / Quota
 
-YouTube 免费配额是每天 10,000 单位。每次搜索消耗 100 单位，所以“关键词数 × 地区数”最好不超过 60。现在的设置是 3 × 3 = 9 次搜索，大约消耗 1,200 单位。如果配额用完，脚本会先保存已抓到的数据。
-The free quota is 10,000 units/day and each search costs 100, so keep keywords × regions under about 60. The current config uses about 1,200 units. If the quota runs out, the script saves what it has.
+YouTube 免费配额是每天 10,000 单位。每次搜索消耗 100 单位，所以“关键词数 × 地区数”最好不超过 60。现在的设置一共 21 次搜索，大约消耗 2,500 单位。如果配额用完，脚本会先保存已抓到的数据。
+The free quota is 10,000 units/day and each search costs 100, so keep keywords × regions under about 60. The current config runs 21 searches, about 2,500 units. If the quota runs out, the script saves what it has.
 
 ## 手动字段 / Your own fields
 
