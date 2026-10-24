@@ -1,42 +1,110 @@
 {
-  "regions": ["US", "GB", "IE"],
-  "only_countries": ["US", "GB", "IE"],
+  "regions": ["US"],
+  "secondary_regions": ["GB", "CA"],
+  "secondary_keywords_per_category": 1,
+  "priority_country": "US",
+  "only_countries": [],
   "keep_unknown_country": true,
   "language": "en",
-  "days_back": 60,
-  "max_results_per_search": 25,
+  "days_back": 90,
+  "max_results_per_search": 50,
   "recent_videos_to_check": 10,
+  "brands_to_track": [
+    "Bambu Lab", "Creality", "Anycubic", "ELEGOO", "Snapmaker", "xTool",
+    "Insta360", "Hollyland", "Aputure", "SmallRig", "Ulanzi", "Hohem",
+    "EcoFlow", "Jackery", "BLUETTI",
+    "Govee", "SwitchBot", "Aqara", "Narwal", "Reolink", "PETKIT",
+    "Edifier", "Tribit", "Tronsmart", "W-KING", "DOSS", "EarFun", "HiFuture", "1MORE", "Shokz", "SOUNDPEATS",
+    "Anker", "Soundcore", "eufy", "Nebula", "UGREEN", "Baseus", "Minisforum",
+    "8BitDo", "GameSir", "Flydigi",
+    "70mai", "Fiido", "RayNeo", "Divoom"
+  ],
+  "big_brands_to_track": [
+    "JBL", "Bose", "Sony", "Sonos", "Marshall", "Beats", "AirPods",
+    "DJI", "GoPro", "Rode", "Logitech", "Razer", "Philips Hue", "Roborock", "Dyson",
+    "Samsung", "Apple"
+  ],
   "categories": [
     {
-      "id": "tech-long",
-      "name": "长视频科技测评 Long-form tech reviews",
-      "description": "做 8 分钟以上长视频、深度讲解和测评科技产品的博主，适合需要详细介绍功能的产品。 Creators whose typical video is 8+ minutes and who explain or review tech products in depth.",
-      "keywords": ["tech review", "gadget review", "speaker review"],
+      "id": "tech-review-long",
+      "name": "综合科技测评·长视频 Long-form tech reviews",
+      "description": "做 8 分钟以上长视频、深度讲解和测评各类 3C 产品的综合科技博主，适合需要详细讲功能的新品。 General tech creators whose typical video is 8+ minutes of in-depth reviews.",
+      "keywords": ["tech review", "best tech gadgets", "tech unboxing"],
       "search_duration": "medium",
       "min_median_minutes": 8,
-      "must_match_any": ["review", "tech", "gadget", "unbox", "speaker", "headphone", "phone", "laptop", "setup"],
+      "must_match_any": ["review", "tech", "gadget", "unbox"],
       "min_subscribers": 5000,
-      "max_subscribers": 500000
+      "max_subscribers": 1000000
     },
     {
-      "id": "desk-setup",
-      "name": "桌面布置 Desk setup",
-      "description": "展示桌面、工作区、游戏房布置的博主，适合桌面摆件和灯光类产品。 Creators who show desk, workspace and gaming-room setups.",
-      "keywords": ["desk setup", "desk tour"],
+      "id": "audio",
+      "name": "音箱 / 耳机 Speakers & audio",
+      "description": "测评蓝牙音箱、耳机、桌面音箱的博主。对应品牌：Edifier、Tribit、Tronsmart、EarFun、Soundcore、Shokz、SOUNDPEATS 等。 Creators reviewing speakers, earbuds and headphones.",
+      "keywords": ["bluetooth speaker review", "earbuds review", "headphones review"],
       "min_median_minutes": 0,
-      "must_match_any": ["desk", "setup", "workspace", "room tour"],
+      "must_match_any": ["speaker", "earbud", "headphone", "audio", "sound", "iem"],
       "min_subscribers": 5000,
-      "max_subscribers": 500000
+      "max_subscribers": 1000000
     },
     {
-      "id": "pixel-art",
-      "name": "像素艺术 Pixel art",
-      "description": "创作或讲解像素艺术的博主，适合像素风产品。 Creators who make or teach pixel art.",
-      "keywords": ["pixel art", "pixel art tutorial"],
+      "id": "maker",
+      "name": "3D 打印 / 创客 3D printing & maker",
+      "description": "3D 打印、激光雕刻、CNC 和 DIY 创客博主。对应品牌：Bambu Lab、Creality、Anycubic、ELEGOO、Snapmaker、xTool。 3D printing, laser engraving and maker creators.",
+      "keywords": ["3d printer review", "laser engraver review", "3d printing projects"],
       "min_median_minutes": 0,
-      "must_match_any": ["pixel"],
-      "min_subscribers": 3000,
-      "max_subscribers": 500000
+      "must_match_any": ["3d print", "printer", "laser", "engrav", "cnc", "maker", "filament"],
+      "min_subscribers": 5000,
+      "max_subscribers": 1000000
+    },
+    {
+      "id": "creator-gear",
+      "name": "影像 / 拍摄设备 Cameras & creator gear",
+      "description": "测评运动相机、全景相机、麦克风、灯光、稳定器的影像和 Vlog 博主。对应品牌：Insta360、Hollyland、Aputure、SmallRig、Ulanzi、Hohem。 Creators covering cameras, mics, lighting and gimbals.",
+      "keywords": ["action camera review", "wireless microphone review", "filmmaking gear"],
+      "min_median_minutes": 0,
+      "must_match_any": ["camera", "mic", "gimbal", "lighting", "vlog", "filmmak", "gear", "lens"],
+      "min_subscribers": 5000,
+      "max_subscribers": 1000000
+    },
+    {
+      "id": "power-outdoor",
+      "name": "便携储能 / 户外 Portable power & outdoor tech",
+      "description": "测评户外电源、太阳能板，以及露营、房车、离网生活的博主。对应品牌：EcoFlow、Jackery、BLUETTI。 Portable power, solar, camping, van-life and off-grid creators.",
+      "keywords": ["portable power station review", "solar generator review", "camping tech gear"],
+      "min_median_minutes": 0,
+      "must_match_any": ["power station", "solar", "battery", "generator", "off grid", "off-grid", "camping", "van", "rv"],
+      "min_subscribers": 5000,
+      "max_subscribers": 1000000
+    },
+    {
+      "id": "smart-home",
+      "name": "智能家居 Smart home",
+      "description": "测评智能灯光、扫地机器人、安防摄像头、智能开关的博主。对应品牌：Govee、SwitchBot、Aqara、Narwal、Reolink、eufy。 Smart lighting, robot vacuums, security cameras and smart-home creators.",
+      "keywords": ["smart home review", "robot vacuum review", "smart lighting setup"],
+      "min_median_minutes": 0,
+      "must_match_any": ["smart home", "vacuum", "robot", "smart light", "security camera", "home assistant", "alexa", "homekit"],
+      "min_subscribers": 5000,
+      "max_subscribers": 1000000
+    },
+    {
+      "id": "pc-accessories",
+      "name": "电脑 / 配件 / 桌面 PC, accessories & desk setup",
+      "description": "测评充电器、扩展坞、迷你主机，以及做桌面布置的博主。对应品牌：Anker、UGREEN、Baseus、Minisforum。 Chargers, docks, mini PCs and desk-setup creators.",
+      "keywords": ["desk setup", "mini pc review", "usb c charger review"],
+      "min_median_minutes": 0,
+      "must_match_any": ["desk", "setup", "pc", "charger", "usb", "laptop", "accessor", "macbook", "dock"],
+      "min_subscribers": 5000,
+      "max_subscribers": 1000000
+    },
+    {
+      "id": "gaming",
+      "name": "游戏外设 Gaming peripherals",
+      "description": "测评手柄、掌机、复古游戏设备和游戏桌面的博主。对应品牌：8BitDo、GameSir、Flydigi。 Controllers, handhelds, retro gaming and gaming-setup creators.",
+      "keywords": ["game controller review", "retro handheld review", "gaming setup"],
+      "min_median_minutes": 0,
+      "must_match_any": ["controller", "gaming", "handheld", "retro", "console", "steam deck", "switch"],
+      "min_subscribers": 5000,
+      "max_subscribers": 1000000
     }
   ]
 }

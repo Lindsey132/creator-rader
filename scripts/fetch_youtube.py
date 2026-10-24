@@ -110,8 +110,12 @@ def search_category(cfg, cat):
         dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=cfg["days_back"])
     ).strftime("%Y-%m-%dT%H:%M:%SZ")
     found = {}
-    for kw in cat["keywords"]:
-        for region in cfg["regions"]:
+    n_secondary = cfg.get("secondary_keywords_per_category", 1)
+    for i, kw in enumerate(cat["keywords"]):
+        # Main regions for every keyword; secondary regions only for the first few
+        # 主要地区每个关键词都搜；次要地区只搜前几个关键词，节省配额
+        regions = list(cfg["regions"]) + (cfg.get("secondary_regions", []) if i < n_secondary else [])
+        for region in regions:
             print(f"[{cat['id']}] searching '{kw}' in {region} ...")
             params = dict(
                 part="snippet", q=kw, type="video", regionCode=region,
@@ -126,8 +130,24 @@ def search_category(cfg, cat):
     return found
 
 
-def channel_profile(ch, n):
-    """Recent-video stats, topic text and contacts for a channel (cached per run)."""
+def brand_mentions(brands, text):
+    found = []
+    for b in brands:
+        if re.search(r"(?<![a-z0-9])" + re.escape(b.lower()) + r"(?![a-z0-9])", text):
+            found.append(b)
+    return found
+
+
+def video_format(median_min):
+    if median_min < 1.5:
+        return "短视频 Shorts"
+    if median_min < 8:
+        return "中视频 Medium (1.5–8 min)"
+    return "长视频 Long (8+ min)"
+
+
+def channel_profile(ch, n, cfg):
+    """Recent-video stats, topic text, brand mentions and contacts for a channel."""
     uploads = ch["contentDetails"]["relatedPlaylists"].get("uploads")
     if not uploads:
         return None
@@ -144,11 +164,16 @@ def channel_profile(ch, n):
     vids_sorted = sorted(vids, key=lambda v: int(v["statistics"].get("viewCount", 0)), reverse=True)
     desc = ch["snippet"].get("description", "")
     video_descs = [v["snippet"].get("description", "") for v in vids]
+    brand_text = " ".join([desc] + [v["snippet"]["title"] + " " + v["snippet"].get("description", "") for v in vids]).lower()
+    median_min = statistics.median(durs)
     return {
+        "format": video_format(median_min),
+        "brands_mentioned": brand_mentions(cfg.get("brands_to_track", []), brand_text),
+        "big_brands_mentioned": brand_mentions(cfg.get("big_brands_to_track", []), brand_text),
         "videos_checked": len(vids),
         "avg_views": round(sum(views) / len(vids)),
         "engagement_rate": round(inter / sum(views), 4) if sum(views) else 0,
-        "median_minutes": statistics.median(durs),
+        "median_minutes": median_min,
         "last_upload": max(v["snippet"]["publishedAt"] for v in vids),
         "top_video": {
             "title": vids_sorted[0]["snippet"]["title"],
@@ -191,7 +216,10 @@ COLUMNS = [
     ("subscribers", "粉丝 Subs"),
     ("avg_views", "平均播放 Avg views"),
     ("engagement_rate", "互动率 Engagement"),
+    ("format", "视频类型 Format"),
     ("median_minutes", "视频时长(分钟) Typical length (min)"),
+    ("brands_mentioned", "提到过的出海品牌 Brands from your list"),
+    ("big_brands_mentioned", "提到过的大牌 Big brands"),
     ("emails", "邮箱 Email"),
     ("socials", "其他联系方式 Other contacts"),
     ("bio", "备注：博主简介 Notes: bio"),
@@ -223,10 +251,17 @@ def write_outputs(cfg, creators, now):
         json.dump({"updated_at": now, "count": len(creators), "creators": creators},
                   f, ensure_ascii=False, indent=2)
 
-    # remove the old single table if it exists / 删除旧的总表
-    old = os.path.join(DATA_DIR, "creators.csv")
-    if os.path.exists(old):
-        os.remove(old)
+    # remove tables for categories no longer in config / 删除已不在设置里的旧表格
+    current = {f"{cat['id']}.csv" for cat in cfg["categories"]}
+    for fname in os.listdir(DATA_DIR):
+        if fname.endswith(".csv") and fname not in current:
+            os.remove(os.path.join(DATA_DIR, fname))
+
+    pri = cfg.get("priority_country", "")
+
+    def order(c):
+        # priority country first, then by score / 优先国家排前面，再按得分
+        return (0 if pri and c.get("country") == pri else 1, -c["score"])
 
     lines = [
         "# 博主数据说明 Creator data guide",
@@ -238,8 +273,7 @@ def write_outputs(cfg, creators, now):
         "",
     ]
     for cat in cfg["categories"]:
-        rows = sorted((c for c in creators if cat["id"] in c["categories"]),
-                      key=lambda c: c["score"], reverse=True)
+        rows = sorted((c for c in creators if cat["id"] in c["categories"]), key=order)
         fname = f"{cat['id']}.csv"
         with open(os.path.join(DATA_DIR, fname), "w", encoding="utf-8-sig", newline="") as f:
             w = csv.writer(f)
@@ -247,6 +281,7 @@ def write_outputs(cfg, creators, now):
             for c in rows:
                 w.writerow([cell(c, k) for k, _ in COLUMNS])
         with_email = sum(1 for c in rows if c["emails"])
+        n_pri = sum(1 for c in rows if pri and c.get("country") == pri)
         rule = f"粉丝 Subs {cat['min_subscribers']:,}–{cat['max_subscribers']:,}"
         if cat.get("min_median_minutes"):
             rule += f"；视频通常 ≥{cat['min_median_minutes']} 分钟 typical video ≥{cat['min_median_minutes']} min"
@@ -257,7 +292,8 @@ def write_outputs(cfg, creators, now):
             "",
             f"- 搜索词 Keywords: {', '.join(cat['keywords'])}",
             f"- 条件 Criteria: {rule}",
-            f"- 共 {len(rows)} 位博主，其中 {with_email} 位有公开邮箱 / {len(rows)} creators, {with_email} with a public email",
+            f"- 共 {len(rows)} 位博主，其中 {n_pri} 位来自 {pri or '-'}（排在最前），{with_email} 位有公开邮箱 / "
+            f"{len(rows)} creators, {n_pri} from {pri or '-'} (listed first), {with_email} with a public email",
             "",
         ]
     lines += [
@@ -267,7 +303,10 @@ def write_outputs(cfg, creators, now):
         "|---|---|",
         "| 得分 Score | 0–100：互动率 50 分 + 平均播放/粉丝 30 分 + 近期活跃 20 分。 Engagement 50 + views÷subs 30 + recent activity 20. |",
         "| 互动率 Engagement | 最近 10 条视频的（点赞+评论）÷ 播放。 (likes+comments) ÷ views over the last 10 videos. |",
+        "| 视频类型 Format | 根据典型时长分为短视频（<1.5 分钟）、中视频、长视频（8 分钟以上）。 Shorts (<1.5 min), medium, or long (8+ min) by typical length. |",
         "| 视频时长 Typical length | 最近 10 条视频时长的中位数。 Median length of the last 10 videos. |",
+        "| 提到过的出海品牌 Brands from your list | 最近 10 条视频的标题或描述里出现过的清单品牌，通常代表合作过或测评过，可用来找竞品合作过的博主。 Brands from your company list named in recent video titles or descriptions, usually a past collab or review. Useful for finding creators who worked with competitors. |",
+        "| 提到过的大牌 Big brands | 同上，统计 JBL、Sony、DJI 等国际大牌。 Same, for big global brands like JBL, Sony and DJI. |",
         "| 邮箱 Email | 从频道简介和视频描述里找到的公开邮箱。“未公开”说明需要去频道“关于”页手动点“查看邮箱”。 Public emails found in the channel bio or video descriptions. “Not public” means check the channel's About page manually. |",
         "| 其他联系方式 Other contacts | Instagram、Linktree、X、TikTok 等链接。 Social and link-in-bio links. |",
         "| 备注 Notes | 博主的频道简介。 The channel's own bio. |",
@@ -290,7 +329,10 @@ def main():
     if os.path.exists(DATA_PATH):
         with open(DATA_PATH, encoding="utf-8") as f:
             for c in json.load(f).get("creators", []):
-                if "categories" in c:  # skip records from the old format / 跳过旧格式数据
+                # keep only categories still in config / 只保留设置里仍存在的类别
+                cats = [x for x in c.get("categories", []) if x in {k["id"] for k in cfg["categories"]}]
+                if cats:
+                    c["categories"] = cats
                     existing[c["channel_id"]] = c
 
     now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -313,7 +355,7 @@ def main():
                 if not (cat["min_subscribers"] <= subs <= cat["max_subscribers"]) or not country_ok(cfg, country):
                     continue
                 if cid not in profile_cache:
-                    profile_cache[cid] = channel_profile(ch, cfg.get("recent_videos_to_check", 10))
+                    profile_cache[cid] = channel_profile(ch, cfg.get("recent_videos_to_check", 10), cfg)
                 prof = profile_cache[cid]
                 if not prof or prof["median_minutes"] < cat.get("min_median_minutes", 0):
                     continue

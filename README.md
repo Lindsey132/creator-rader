@@ -37,7 +37,10 @@ Open the [`data`](data) folder; its guide links to one table per category.
 
 | 字段 Field | 含义 Meaning |
 |---|---|
-| `regions` | 搜索时偏向的国家 / countries the search leans toward |
+| `regions` | 主要搜索地区，每个关键词都会搜 / main search regions, used for every keyword |
+| `secondary_regions` | 次要地区，只搜每个类别的前 `secondary_keywords_per_category` 个关键词 / extra regions, used only for each category's first keyword(s) |
+| `priority_country` | 表格里优先排在前面的国家 / country listed first in every table |
+| `brands_to_track` / `big_brands_to_track` | 在视频标题和描述里查找的品牌，用来判断博主是否测评或合作过 / brands looked for in video titles and descriptions to spot past reviews or collabs |
 | `only_countries` | 只保留这些国家的博主（留空 `[]` 表示不限）/ keep only creators from these countries (`[]` = any) |
 | `keep_unknown_country` | 没填国家的博主是否保留 / keep creators with no country set |
 | `language` | 视频语言 / video language |
@@ -71,8 +74,8 @@ To add a category, copy one and change its `id`, `name` and keywords. Each keywo
 
 ## API 配额 / Quota
 
-YouTube 免费配额是每天 10,000 单位。每次搜索消耗 100 单位，所以“关键词数 × 地区数”最好不超过 60。现在的设置一共 21 次搜索，大约消耗 2,500 单位。如果配额用完，脚本会先保存已抓到的数据。
-The free quota is 10,000 units/day and each search costs 100, so keep keywords × regions under about 60. The current config runs 21 searches, about 2,500 units. If the quota runs out, the script saves what it has.
+YouTube 免费配额是每天 10,000 单位。每次搜索消耗 100 单位，所以“关键词数 × 地区数”最好不超过 60。现在的设置一共 40 次搜索，大约消耗 5,000–6,000 单位。如果配额用完，脚本会先保存已抓到的数据。
+The free quota is 10,000 units/day and each search costs 100, so keep keywords × regions under about 60. The current config runs 40 searches, about 5,000–6,000 units. If the quota runs out, the script saves what it has.
 
 ## 手动字段 / Your own fields
 
