@@ -1,6 +1,6 @@
 # 博主数据说明 Creator data guide
 
-最近更新 Last updated: 2026-10-25
+最近更新 Last updated: 2026-10-26
 
 每个类别一张表，点链接打开（GitHub 会显示成表格，也可以下载后用 Excel 打开）。
 One table per category. Click to open; GitHub shows it as a table, or download it for Excel.
@@ -11,7 +11,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: tech review, best tech gadgets, tech unboxing
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000；视频通常 ≥8 分钟 typical video ≥8 min
-- 共 23 位博主，其中 8 位来自 US（排在最前），12 位有公开邮箱 / 23 creators, 8 from US (listed first), 12 with a public email
+- 共 26 位博主，其中 9 位来自 US（排在最前），15 位有公开邮箱 / 26 creators, 9 from US (listed first), 15 with a public email
 
 ## [音箱 / 耳机 Speakers & audio](audio.csv)
 
@@ -19,7 +19,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: bluetooth speaker review, earbuds review, headphones review
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 72 位博主，其中 26 位来自 US（排在最前），41 位有公开邮箱 / 72 creators, 26 from US (listed first), 41 with a public email
+- 共 82 位博主，其中 31 位来自 US（排在最前），42 位有公开邮箱 / 82 creators, 31 from US (listed first), 42 with a public email
 
 ## [3D 打印 / 创客 3D printing & maker](maker.csv)
 
@@ -27,7 +27,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: 3d printer review, laser engraver review, 3d printing projects
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 87 位博主，其中 47 位来自 US（排在最前），26 位有公开邮箱 / 87 creators, 47 from US (listed first), 26 with a public email
+- 共 96 位博主，其中 54 位来自 US（排在最前），31 位有公开邮箱 / 96 creators, 54 from US (listed first), 31 with a public email
 
 ## [影像 / 拍摄设备 Cameras & creator gear](creator-gear.csv)
 
@@ -35,7 +35,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: action camera review, wireless microphone review, filmmaking gear
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 110 位博主，其中 40 位来自 US（排在最前），50 位有公开邮箱 / 110 creators, 40 from US (listed first), 50 with a public email
+- 共 126 位博主，其中 47 位来自 US（排在最前），58 位有公开邮箱 / 126 creators, 47 from US (listed first), 58 with a public email
 
 ## [便携储能 / 户外 Portable power & outdoor tech](power-outdoor.csv)
 
@@ -43,7 +43,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: portable power station review, solar generator review, camping tech gear
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 45 位博主，其中 26 位来自 US（排在最前），22 位有公开邮箱 / 45 creators, 26 from US (listed first), 22 with a public email
+- 共 49 位博主，其中 30 位来自 US（排在最前），24 位有公开邮箱 / 49 creators, 30 from US (listed first), 24 with a public email
 
 ## [智能家居 Smart home](smart-home.csv)
 
@@ -51,7 +51,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: smart home review, robot vacuum review, smart lighting setup
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 54 位博主，其中 31 位来自 US（排在最前），17 位有公开邮箱 / 54 creators, 31 from US (listed first), 17 with a public email
+- 共 55 位博主，其中 32 位来自 US（排在最前），18 位有公开邮箱 / 55 creators, 32 from US (listed first), 18 with a public email
 
 ## [电脑 / 配件 / 桌面 PC, accessories & desk setup](pc-accessories.csv)
 
@@ -59,7 +59,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: desk setup, mini pc review, usb c charger review
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 105 位博主，其中 46 位来自 US（排在最前），58 位有公开邮箱 / 105 creators, 46 from US (listed first), 58 with a public email
+- 共 116 位博主，其中 49 位来自 US（排在最前），61 位有公开邮箱 / 116 creators, 49 from US (listed first), 61 with a public email
 
 ## [游戏外设 Gaming peripherals](gaming.csv)
 
@@ -67,7 +67,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: game controller review, retro handheld review, gaming setup
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 103 位博主，其中 57 位来自 US（排在最前），56 位有公开邮箱 / 103 creators, 57 from US (listed first), 56 with a public email
+- 共 120 位博主，其中 66 位来自 US（排在最前），63 位有公开邮箱 / 120 creators, 66 from US (listed first), 63 with a public email
 
 ## 各列说明 Columns
 
