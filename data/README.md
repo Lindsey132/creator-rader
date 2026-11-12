@@ -1,6 +1,6 @@
 # 博主数据说明 Creator data guide
 
-最近更新 Last updated: 2026-11-11
+最近更新 Last updated: 2026-11-12
 
 每个类别一张表，点链接打开（GitHub 会显示成表格，也可以下载后用 Excel 打开）。
 One table per category. Click to open; GitHub shows it as a table, or download it for Excel.
@@ -11,7 +11,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: tech review, best tech gadgets, tech unboxing
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000；视频通常 ≥8 分钟 typical video ≥8 min
-- 共 68 位博主，其中 31 位来自 US（排在最前），39 位有公开邮箱 / 68 creators, 31 from US (listed first), 39 with a public email
+- 共 75 位博主，其中 33 位来自 US（排在最前），42 位有公开邮箱 / 75 creators, 33 from US (listed first), 42 with a public email
 
 ## [音箱 / 耳机 Speakers & audio](audio.csv)
 
@@ -19,7 +19,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: bluetooth speaker review, earbuds review, headphones review
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 183 位博主，其中 60 位来自 US（排在最前），86 位有公开邮箱 / 183 creators, 60 from US (listed first), 86 with a public email
+- 共 191 位博主，其中 63 位来自 US（排在最前），92 位有公开邮箱 / 191 creators, 63 from US (listed first), 92 with a public email
 
 ## [3D 打印 / 创客 3D printing & maker](maker.csv)
 
@@ -27,7 +27,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: 3d printer review, laser engraver review, 3d printing projects
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 185 位博主，其中 104 位来自 US（排在最前），70 位有公开邮箱 / 185 creators, 104 from US (listed first), 70 with a public email
+- 共 189 位博主，其中 105 位来自 US（排在最前），73 位有公开邮箱 / 189 creators, 105 from US (listed first), 73 with a public email
 
 ## [影像 / 拍摄设备 Cameras & creator gear](creator-gear.csv)
 
@@ -35,7 +35,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: action camera review, wireless microphone review, filmmaking gear
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 318 位博主，其中 111 位来自 US（排在最前），144 位有公开邮箱 / 318 creators, 111 from US (listed first), 144 with a public email
+- 共 330 位博主，其中 112 位来自 US（排在最前），153 位有公开邮箱 / 330 creators, 112 from US (listed first), 153 with a public email
 
 ## [便携储能 / 户外 Portable power & outdoor tech](power-outdoor.csv)
 
@@ -43,7 +43,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: portable power station review, solar generator review, camping tech gear
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 113 位博主，其中 68 位来自 US（排在最前），55 位有公开邮箱 / 113 creators, 68 from US (listed first), 55 with a public email
+- 共 114 位博主，其中 69 位来自 US（排在最前），55 位有公开邮箱 / 114 creators, 69 from US (listed first), 55 with a public email
 
 ## [智能家居 Smart home](smart-home.csv)
 
@@ -51,7 +51,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: smart home review, robot vacuum review, smart lighting setup
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 120 位博主，其中 72 位来自 US（排在最前），47 位有公开邮箱 / 120 creators, 72 from US (listed first), 47 with a public email
+- 共 125 位博主，其中 75 位来自 US（排在最前），47 位有公开邮箱 / 125 creators, 75 from US (listed first), 47 with a public email
 
 ## [电脑 / 配件 / 桌面 PC, accessories & desk setup](pc-accessories.csv)
 
@@ -59,7 +59,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: desk setup, mini pc review, usb c charger review
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 255 位博主，其中 105 位来自 US（排在最前），127 位有公开邮箱 / 255 creators, 105 from US (listed first), 127 with a public email
+- 共 261 位博主，其中 107 位来自 US（排在最前），132 位有公开邮箱 / 261 creators, 107 from US (listed first), 132 with a public email
 
 ## [游戏外设 Gaming peripherals](gaming.csv)
 
@@ -67,7 +67,7 @@ One table per category. Click to open; GitHub shows it as a table, or download i
 
 - 搜索词 Keywords: game controller review, retro handheld review, gaming setup
 - 条件 Criteria: 粉丝 Subs 5,000–1,000,000
-- 共 265 位博主，其中 134 位来自 US（排在最前），129 位有公开邮箱 / 265 creators, 134 from US (listed first), 129 with a public email
+- 共 277 位博主，其中 140 位来自 US（排在最前），135 位有公开邮箱 / 277 creators, 140 from US (listed first), 135 with a public email
 
 ## 各列说明 Columns
 
